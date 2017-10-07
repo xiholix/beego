@@ -34,5 +34,10 @@ func (c *MainController) SaveFile() {
 
 	defer f.Close()
 	c.SaveToFile("uploadname", "static/upload/"+h.Filename)
-	c.Redirect("/", 302)
+
+	c.Ctx.Output.SetStatus(200)
+	c.Data["json"] = struct {
+		Message string
+	}{"upload ok!!!"}
+	c.ServeJSON()
 }
